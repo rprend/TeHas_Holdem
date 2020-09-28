@@ -1,33 +1,40 @@
-module Lib
-    ( someFunc
-    ) where
+module Data.Card where
 
-data CardSuit = Heart | Diamond | Club | Spade
-  deriving (Eq, Ord, Bounded, Show, Read)
+data Suit = Heart | Diamond | Club | Spade
+  deriving (Eq, Show)
 
 data CardValue = Two | Three | Four | Five | Six | Seven | Eight | Nine | Ten | Jack | Queen | King | Ace
-  deriving (Eq, Ord, Enum, Bounded, Show, Read)
+  deriving (Eq, Ord, Enum, Show)
 
-data CardInstance = Card CardValue CardSuit
-  deriving (Show, Read)
+data Card = Card CardValue Suit
+  deriving (Show)
 
-data CardHand = CardHand CardInstance CardInstance
-  deriving (Show, Read)
+cardValue :: Card -> CardValue
+cardValue (Card val _) = val
 
-data PotHand = Nothing | CardInstance CardInstance CardInstance | Turn CardInstance CardInstance CardInstance CardInstance | River CardInstance CardInstance CardInstance CardInstance CardInstance
-  deriving (Show, Read)
+suit :: Card -> Suit
+suit (Card _ s) = s
 
-someFunc :: IO ()
-someFunc = putStrLn "someFunc"
+instance Eq Card where
+  Card value1 _ == Card value2 _ = value1 == value2
+
+instance Ord Card where
+  (Card value1 _) `compare` (Card value2 _) = value1 `compare` value2
+
+data Hand = Hand Card Card
+
+data Community = Nothing | Flop Card Card Card | Turn Card Card Card Card | River Card Card Card Card Card 
+
 
 -- Returns the value of your hand
-handValue :: CardHand -> PotHand -> Int
+handValue :: Community -> Hand -> Int
 handValue = undefined
 -- handValue hand (Flop f) = undefined
 -- handValue hand (Turn t) = undefined
 -- handValue hand (River r) = undefined
 
 -- returns the index of the best hand in the list of provided hands
-handWinner :: [CardHand] -> PotHand -> Int
+handWinner :: Community -> [Hand] -> Int
 handWinner = undefined
+
 

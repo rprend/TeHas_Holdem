@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: a4a7a7bb0bc86505807eb8ba059584ebaadad7b36f869a91f06c570f7f8fa3c9
+-- hash: ad572e2abf29407891316e9a2ff46f40be0d61431ad3859bc681d982b4b30462
 
 name:           holdem
 version:        0.1.0.0
@@ -27,6 +27,7 @@ source-repository head
 
 library
   exposed-modules:
+      Game
       Lib
   other-modules:
       Paths_holdem
